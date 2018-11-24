@@ -1,28 +1,143 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="flex">
+      <ScrollPane class="flex-el">
+        <div class="table">
+          <div class="field">
+            <div class="cell" v-for="i in 1000" :key="i"></div>
+          </div>
+        </div>
+
+        <transition name="glow" slot="top-indicator" slot-scope="s">
+          <div class="indicator-top" v-if="!s.extreme"></div>
+        </transition>
+
+        <transition name="glow" slot="bottom-indicator" slot-scope="s">
+          <div class="indicator-bottom" v-if="!s.extreme"></div>
+        </transition>
+
+        <transition name="glow" slot="left-indicator" slot-scope="s">
+          <div class="indicator-left" v-if="!s.extreme"></div>
+        </transition>
+
+        <transition name="glow" slot="right-indicator" slot-scope="s">
+          <div class="indicator-right" v-if="!s.extreme"></div>
+        </transition>
+      </ScrollPane>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ScrollPane from './components/ScrollPane.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    ScrollPane
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  margin: 0;
+}
+
+.table {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.field {
+  --cells-x: 10;
+  --cell-size: 50px;
+  display: grid;
+  grid-template-columns: repeat(var(--cells-x), var(--cell-size));
+  grid-gap: 5px;
+  grid-auto-rows: minmax(var(--cell-size), auto);
+}
+
+.field > .cell {
+  background-color: #222;
+}
+
+.flex {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.flex-el {
+  height: 100%;
+  width: 100%;
+}
+
+.indicator-top,
+.indicator-bottom,
+.indicator-left,
+.indicator-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.indicator-top,
+.indicator-bottom {
+  left: -10px;
+  right: -10px;
+}
+
+.indicator-left,
+.indicator-right {
+  top: -10px;
+  bottom: -10px;
+}
+
+.indicator-top {
+  bottom: initial;
+  height: var(--indicator);
+  margin-top: calc(-1 * var(--indicator));
+  box-shadow: 0 calc(var(--indicator) / 2) var(--indicator) var(--topExtreme);
+}
+
+.indicator-bottom {
+  top: initial;
+  height: var(--indicator);
+  margin-bottom: calc(-1 * var(--indicator));
+  box-shadow: 0 calc(-1 * var(--indicator) / 2) var(--indicator) var(--bottomExtreme);
+}
+
+.indicator-left {
+  right: initial;
+  width: var(--indicator);
+  margin-left: calc(-1 * var(--indicator));
+  box-shadow: calc(var(--indicator) / 2) 0 var(--indicator) var(--leftExtreme);
+}
+
+.indicator-right {
+  left: initial;
+  width: var(--indicator);
+  margin-right: calc(-1 * var(--indicator));
+  box-shadow: calc(-1 * var(--indicator) / 2) 0 var(--indicator) var(--rightExtreme);
+}
+
+.glow-enter-active,
+.glow-leave-active {
+  transition-property: box-shadow;
+  transition-duration: .6s;
+  transition-timing-function: ease-out;
+}
+
+.glow-enter,
+.glow-leave-to {
+  box-shadow: 0 0 transparent;
 }
 </style>
