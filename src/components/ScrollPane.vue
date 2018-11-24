@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :style="style">
+  <div class="wrapper">
     <div class="container" ref="container" @scroll="setScrollStyle">
       <slot/>
     </div>
@@ -17,7 +17,6 @@ export default {
 
   data () {
     return {
-      indicatorSize: 40,
       extremes: {
         top: true,
         bottom: true,
@@ -29,18 +28,6 @@ export default {
 
   mounted() {
     this.setScrollStyle()
-  },
-
-  computed: {
-    style() {
-      return {
-        '--indicator': `${this.indicatorSize}px`,
-        '--topExtreme': 'green',
-        '--rightExtreme': 'green',
-        '--bottomExtreme': 'green',
-        '--leftExtreme': 'green',
-      }
-    }
   },
 
   methods: {

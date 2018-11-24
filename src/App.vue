@@ -40,8 +40,15 @@ export default {
 </script>
 
 <style>
+:root {
+  --background-color: #e6e5d9;
+  --cell-color: #f9f8eb;
+  --indicator: 40px;
+}
+
 body {
   margin: 0;
+  background-color: var(--background-color);
 }
 
 .table {
@@ -52,7 +59,7 @@ body {
 }
 
 .field {
-  --cells-x: 10;
+  --cells-x: 20;
   --cell-size: 50px;
   display: grid;
   grid-template-columns: repeat(var(--cells-x), var(--cell-size));
@@ -61,7 +68,7 @@ body {
 }
 
 .field > .cell {
-  background-color: #222;
+  background-color: var(--cell-color);
 }
 
 .flex {
@@ -105,28 +112,40 @@ body {
   bottom: initial;
   height: var(--indicator);
   margin-top: calc(-1 * var(--indicator));
-  box-shadow: 0 calc(var(--indicator) / 2) var(--indicator) var(--topExtreme);
+  box-shadow:
+    0 2px 3px 0px #b0f9f9,
+    0 2px 6px #2bf3f3,
+    0 4px 25px 10px #9ee6e65e;
 }
 
 .indicator-bottom {
   top: initial;
   height: var(--indicator);
   margin-bottom: calc(-1 * var(--indicator));
-  box-shadow: 0 calc(-1 * var(--indicator) / 2) var(--indicator) var(--bottomExtreme);
+  box-shadow:
+    0 -2px 3px 0px #b0f9f9,
+    0 -2px 6px #2bf3f3,
+    0 -4px 25px 10px #9ee6e65e;
 }
 
 .indicator-left {
   right: initial;
   width: var(--indicator);
   margin-left: calc(-1 * var(--indicator));
-  box-shadow: calc(var(--indicator) / 2) 0 var(--indicator) var(--leftExtreme);
+  box-shadow:
+    2px 0 3px 0px #b0f9f9,
+    2px 0 6px #2bf3f3,
+    4px 0 25px 10px #9ee6e65e;
 }
 
 .indicator-right {
   left: initial;
   width: var(--indicator);
   margin-right: calc(-1 * var(--indicator));
-  box-shadow: calc(-1 * var(--indicator) / 2) 0 var(--indicator) var(--rightExtreme);
+  box-shadow:
+    -2px 0 3px 0px #b0f9f9,
+    -2px 0 6px #2bf3f3,
+    -4px 0 25px 10px #9ee6e65e;
 }
 
 .glow-enter-active,
